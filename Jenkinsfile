@@ -8,12 +8,6 @@ pipeline {
 
     stages {
 
-        stage('Clone Repo') {
-            steps {
-                git 'https://github.com/Abhishek-Soni-Git/Mern_Project_DevOps.git'
-            }
-        }
-
         stage('Build Backend Image') {
             steps {
                 sh 'docker build -t abhi550/mean-backend:latest backend'
