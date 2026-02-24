@@ -48,14 +48,14 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                sh """
-                    docker compose -f /home/ubuntu/mean-app/docker-compose.yml pull
-                    docker compose -f /home/ubuntu/mean-app/docker-compose.yml up -d
-                """
-            }
-        }
+       stage('Deploy') {
+    steps {
+        sh """
+            docker-compose -f /home/ubuntu/mean-app/docker-compose.yml pull
+            docker-compose -f /home/ubuntu/mean-app/docker-compose.yml up -d
+        """
+    }
+}
     }
 
     post {
