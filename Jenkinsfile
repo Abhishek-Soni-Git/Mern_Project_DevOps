@@ -55,8 +55,8 @@ pipeline {
                     sh """
                         ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} '
                             cd /home/ubuntu/mean-app &&
-                            docker-compose pull &&
-                            docker-compose up -d
+                            docker compose pull &&
+                            docker compose up -d
                         '
                     """
                 }
