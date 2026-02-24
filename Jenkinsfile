@@ -5,6 +5,7 @@ pipeline {
         DOCKERHUB_REPO_BACKEND = "abhi550/mean-backend"
         DOCKERHUB_REPO_FRONTEND = "abhi550/mean-frontend"
         IMAGE_TAG = "latest"
+        EC2_HOST = "ec2-100-48-91-160.compute-1.amazonaws.com"
     }
 
     stages {
@@ -48,19 +49,24 @@ pipeline {
             }
         }
 
-       stage('Deploy') {
-    steps {
-        sh """
-            docker-compose -f /home/ubuntu/mean-app/docker-compose.yml pull
-            docker-compose -f /home/ubuntu/mean-app/docker-compose.yml up -d
-        """
-    }
-}
+        stage('Deploy to EC2') {
+            steps {
+                sshagent(['ec2-ssh-key']) {
+                    sh """
+                        ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} '
+                            cd /home/ubuntu/mean-app &&
+                            docker-compose pull &&
+                            docker-compose up -d
+                        '
+                    """
+                }
+            }
+        }
     }
 
     post {
         success {
-            echo "✅ Pipeline executed successfully!"
+            echo "✅ CI/CD Pipeline executed successfully!"
         }
         failure {
             echo "❌ Pipeline failed. Check logs above."
