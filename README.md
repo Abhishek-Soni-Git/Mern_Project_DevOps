@@ -1,27 +1,73 @@
-In this DevOps task, you need to build and deploy a full-stack CRUD application using the MEAN stack (MongoDB, Express, Angular 15, and Node.js). The backend will be developed with Node.js and Express to provide REST APIs, connecting to a MongoDB database. The frontend will be an Angular application utilizing HTTPClient for communication.  
+# MEAN Stack DevOps Deployment
 
-The application will manage a collection of tutorials, where each tutorial includes an ID, title, description, and published status. Users will be able to create, retrieve, update, and delete tutorials. Additionally, a search box will allow users to find tutorials by title.
+## 🚀 Project Overview
 
-## Project setup
+This project demonstrates containerization, CI/CD automation, and cloud deployment of a MEAN (MongoDB, Express, Angular, Node.js) application.
 
-### Node.js Server
+The application has been:
 
-cd backend
+- Containerized using Docker
+- Deployed using Docker Compose
+- Hosted on AWS EC2 Ubuntu Server
+- Automated using Jenkins CI/CD pipeline
+- Configured with Nginx Reverse Proxy on port 80
 
-npm install
+---
 
-You can update the MongoDB credentials by modifying the `db.config.js` file located in `app/config/`.
+## 🏗️ Architecture
 
-Run `node server.js`
+GitHub → Jenkins CI/CD → Docker Hub → AWS EC2 → Docker Compose → Nginx → Browser
 
-### Angular Client
+---
 
-cd frontend
+## 🐳 Docker Setup
 
-npm install
+### Backend
+- Node 20 Alpine image
+- Runs on port 8080
 
-Run `ng serve --port 8081`
+### Frontend
+- Multi-stage build
+- Angular build
+- Served via Nginx container
 
-You can modify the `src/app/services/tutorial.service.ts` file to adjust how the frontend interacts with the backend.
+---
 
-Navigate to `http://localhost:8081/`
+## 🗄️ Database Setup
+
+MongoDB is deployed using official Docker image via docker-compose.
+
+---
+
+## ☁️ Cloud Infrastructure
+
+- AWS EC2 Ubuntu Server
+- Docker & Docker Compose installed
+- Security Group allows:
+  - Port 22 (SSH)
+  - Port 80 (HTTP)
+
+---
+
+## 🔄 CI/CD Pipeline
+
+Implemented using Jenkins.
+
+Pipeline stages:
+
+1. Checkout Code
+2. Build Backend Image
+3. Build Frontend Image
+4. Push Images to Docker Hub
+5. SSH into EC2
+6. Pull latest images
+7. Restart containers
+
+---
+
+## 🌐 Nginx Reverse Proxy
+
+Application accessible via:
+
+
+http://100.48.91.160
